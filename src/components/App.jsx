@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Statistics from './Statistics';
 import FeedbackOptions from './FeedbackOptions';
 import Section from 'components/Section';
+import Notification from './Notification';
 
 class App extends Component {
   constructor(props) {
@@ -40,15 +41,21 @@ class App extends Component {
         <Section title={'Please leave feedback'}>
           <FeedbackOptions clickBtn={this.clickBtn} />
         </Section>
-        <Section title={'Statistics'}>
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={total}
-            positivePercentage={positivePercentage}
-          />
-        </Section>
+        {total ? (
+          <Section title={'Statistics'}>
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              positivePercentage={positivePercentage}
+            />
+          </Section>
+        ) : (
+          <Section>
+            <Notification message="There is no feedback" />
+          </Section>
+        )}
       </div>
     );
   }
