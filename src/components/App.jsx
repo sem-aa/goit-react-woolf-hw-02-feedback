@@ -5,20 +5,16 @@ import Section from 'components/Section';
 import Notification from './Notification';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      good: 0,
-      neutral: 0,
-      bad: 0,
-    };
-  }
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
 
   clickBtn = e => {
-    const grade = e.target.name;
     this.setState(prevState => ({
       ...prevState,
-      [grade]: prevState[grade] + 1,
+      [e.target.name]: prevState[e.target.name] + 1,
     }));
   };
 
@@ -39,10 +35,10 @@ class App extends Component {
     return (
       <div>
         <Section title={'Please leave feedback'}>
-          <FeedbackOptions clickBtn={this.clickBtn} />
+          <FeedbackOptions clickBtn={this.clickBtn} state={this.state} />
         </Section>
-        {total ? (
-          <Section title={'Statistics'}>
+        <Section title={'Statistics'}>
+          {total ? (
             <Statistics
               good={good}
               neutral={neutral}
@@ -50,12 +46,10 @@ class App extends Component {
               total={total}
               positivePercentage={positivePercentage}
             />
-          </Section>
-        ) : (
-          <Section>
+          ) : (
             <Notification message="There is no feedback" />
-          </Section>
-        )}
+          )}
+        </Section>
       </div>
     );
   }

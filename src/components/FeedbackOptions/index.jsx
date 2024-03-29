@@ -1,38 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './FeedbackOptions.module.css';
 
-class FeedbackOptions extends Component {
-  render() {
-    const { clickBtn } = this.props;
-    return (
-      <div className={styles.buttonContainer}>
+const FeedbackOptions = ({ clickBtn, state }) => {
+  return (
+    <div className={styles.buttonContainer}>
+      {Object.keys(state).map(btnName => (
         <button
+          key={btnName}
           className={styles.button}
           type="button"
-          name="good"
+          name={btnName}
           onClick={clickBtn}
         >
-          Good
+          {btnName}
         </button>
-        <button
-          className={styles.button}
-          type="button"
-          name="neutral"
-          onClick={clickBtn}
-        >
-          Neutral
-        </button>
-        <button
-          className={styles.button}
-          type="button"
-          name="bad"
-          onClick={clickBtn}
-        >
-          Bad
-        </button>
-      </div>
-    );
-  }
-}
+      ))}
+    </div>
+  );
+};
 
 export default FeedbackOptions;
